@@ -1,5 +1,7 @@
 package com.vijay.movieticket.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,14 @@ public class MovieDetailsServiceImpl implements MovieDetilsService {
 	@Override
 	public MovieDetails addMovieDetails(MovieDetails movieDetails) {
 		MovieDetails m = movieDetailsRepo.saveAndFlush(movieDetails);
-		System.out.print(m);
 		return (m);
+	}
+
+	@Override
+	public List<MovieDetails> getAllMovies(MovieDetails movieDetails) {
+		// TODO Auto-generated method stub
+		List<MovieDetails> listmovie=movieDetailsRepo.findAll();
+		return listmovie;
 	}
 
 }

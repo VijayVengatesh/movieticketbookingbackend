@@ -21,13 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vijay.movieticket.model.MovieDetails;
+import com.vijay.movieticket.repositery.MovieDetailsRepo;
+
 // Annotation 
 @RestController
 @RequestMapping("/file")
 public class FileController {
 	@Autowired
-	private Environment env;
-
+	private MovieDetailsRepo movieDetailsRepo;
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile uploadedFile) {
 		if (uploadedFile.isEmpty()) {
@@ -39,13 +41,16 @@ public class FileController {
 
 			UUID uuid = UUID.randomUUID();
 //			String uploadsLocation = env.getProperty("resource.uploads");
-			String uploadsLocation = "D:\\springworkspace\\movieticket\\src\\main\\resources\\uploads";
-			String fileLocation = uploadsLocation + uuid + uploadedFile.getOriginalFilename();
-			Path path = Paths.get(fileLocation);
+			String uploadsLocation = "D:/springworkspace/movieticket/src/main/resources/uploads/";
+			String fileLocation =uploadsLocation + uuid+uploadedFile.getOriginalFilename();
+			String filename=uuid+uploadedFile.getOriginalFilename();
+			Path path = Paths.get(fileLocation );
 			Files.write(path, bytes);
-
-			File file = new File(fileLocation);
-			return ResponseEntity.status(HttpStatus.OK).body(file.getName());
+			MovieDetails movieDetails=new MovieDetails();
+			movieDetails.setMovieImg(filename);
+//			movieDetailsRepo.saveAndFlush(movieDetails);
+//			File file = new File(fileLocation);
+			return ResponseEntity.status(HttpStatus.OK).body(filename);
 
 		} catch (Exception e) {
 			e.printStackTrace();

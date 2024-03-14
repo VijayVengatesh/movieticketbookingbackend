@@ -17,13 +17,13 @@ public class MovieDetails {
 	private String movieDuration;
 	private String movieGenre;
 	private String movieReleaseDate;
-	private String MovieImg;
+	private String movieImg;
 	
 	public String getMovieImg() {
-		return MovieImg;
+		return movieImg;
 	}
 	public void setMovieImg(String movieImg) {
-		MovieImg = movieImg;
+		this.movieImg = movieImg;
 	}
 	public int getMovieId() {
 		return movieId;
